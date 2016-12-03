@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Vota App</string>
+    <string name="webservice">http://10.0.2.2:8080/sentinel/v2/vota</string>
 </resources>
