@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Created by budnieswski on 03/12/16.
+ */
 public class MasterActivity extends ListActivity {
 
     @Override

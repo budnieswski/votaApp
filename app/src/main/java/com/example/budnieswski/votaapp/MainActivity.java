@@ -1,7 +1,8 @@
 package com.example.budnieswski.votaapp;
 
 import android.app.ProgressDialog;
-import android.content.res.Resources;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,21 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Created by budnieswski on 03/12/16.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 message.setText("");
 
                 if(!titulo.equals("") && !senha.equals("")) {
-                    volleyLoginRequest(titulo, senha);
+                    volleyLoginRequest(MainActivity.this, titulo, senha);
                 } else {
                     message.setText("Titulo and Senha are required.");
                 }
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void volleyLoginRequest(String titulo, String senha) {
+    public void volleyLoginRequest(final Context context, String titulo, String senha) {
         String REQUEST_TAG = "VOTA_LOGIN";
         pDialog = new ProgressDialog(MainActivity.this);
         pDialog.setMessage("Verificando dados ...");
@@ -72,8 +70,12 @@ public class MainActivity extends AppCompatActivity {
                             if (response.getBoolean("error")) {
                                 message.setText(response.getString("message"));
                             } else {
-                                message.setText(response.getString("message"));
                                 // Logged!
+                                message.setText(response.getString("message"));
+                                Intent it = new Intent(context, WelcomeActivity.class);
+                                startActivity(it);
+
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
