@@ -1,4 +1,4 @@
-package com.example.budnieswski.votaapp;
+package com.example.budnieswski.votaapp.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/foto"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="NOME"
+                    android:id="@+id/nome"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/foto"
+                    android:layout_toEndOf="@+id/foto"
+                    android:paddingTop="15dp"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="PARTIDO"
+                    android:id="@+id/partido"
+                    android:layout_below="@+id/nome"
+                    android:layout_toRightOf="@+id/foto"
+                    android:layout_toEndOf="@+id/foto"
+                    android:paddingTop="5dp"
+                    android:textSize="13dp" />
+        </RelativeLayout>
+</LinearLayout>

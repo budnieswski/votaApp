@@ -1,4 +1,4 @@
-package com.example.budnieswski.votaapp;
+package com.example.budnieswski.votaapp.app;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.budnieswski.votaapp.R;
+import com.example.budnieswski.votaapp.util.AppSingleton;
+import com.example.budnieswski.votaapp.util.md5;
 
 import org.json.JSONException;
 import org.json.JSONObject;

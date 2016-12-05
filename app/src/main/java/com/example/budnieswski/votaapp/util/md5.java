@@ -1,4 +1,4 @@
-package com.example.budnieswski.votaapp;
+package com.example.budnieswski.votaapp.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
