@@ -96,15 +96,10 @@ public class MainActivity extends AppCompatActivity {
                         TextView message = (TextView) findViewById(R.id.message);
                         NetworkResponse networkResponse = error.networkResponse;
 
-                        if (networkResponse != null) {
-                            switch (networkResponse.statusCode) {
-                                case 404:
-                                    message.setText( "Server not found (404)" );
-                                    break;
-                                default:
-                                    message.setText( "Couldn't connect to server, try again later." );
-                                    break;
-                            }
+                        if (networkResponse != null && networkResponse.statusCode==404) {
+                            message.setText( "Server not found (404)" );
+                        } else {
+                            message.setText("Couldn't connect to server, try again later.");
                         }
 
                         pDialog.hide();

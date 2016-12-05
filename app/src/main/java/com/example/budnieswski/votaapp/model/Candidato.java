@@ -4,6 +4,8 @@ package com.example.budnieswski.votaapp.model;
  * Created by budnieswski on 04/12/16.
  */
 public class Candidato {
+    private int id;
+    private String json;
     private String nome;
     private String partido;
     private String fotoURL;
@@ -11,10 +13,27 @@ public class Candidato {
     public Candidato() {
     }
 
-    public Candidato(String nome, String partido, String fotoURL) {
+    public Candidato(int id, String nome, String partido, String fotoURL) {
+        this.id = id;
         this.nome = nome;
         this.partido = partido;
         this.fotoURL = fotoURL;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

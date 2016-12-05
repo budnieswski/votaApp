@@ -1,6 +1,7 @@
 package com.example.budnieswski.votaapp.app;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,7 @@ import java.util.List;
 public class WelcomeActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
-    private List<Candidato> candidatosList;
+    private static List<Candidato> candidatosList;
     private String urlPrefeito = "https://dl.dropboxusercontent.com/u/40990541/prefeito.json";
     private String urlVereador = "https://dl.dropboxusercontent.com/u/40990541/vereador.json";
 
@@ -41,6 +43,17 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         candidatosList = new ArrayList<Candidato>();
+
+        ((ListView) findViewById(R.id.lista)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String json = ((TextView) view.findViewById(R.id.json)).getText().toString();
+                Intent it = new Intent(WelcomeActivity.this, DetailActivity.class);
+                it.putExtra("json", json);
+                startActivity(it);
+            }
+        });
+
     }
 
     @Override
@@ -94,9 +107,11 @@ public class WelcomeActivity extends AppCompatActivity {
                                 JSONObject data = candidatos.getJSONObject(i);
 
                                 Candidato candidato = new Candidato();
+                                candidato.setId(data.getInt("id"));
                                 candidato.setNome(data.getString("nome"));
                                 candidato.setPartido(data.getString("partido"));
                                 candidato.setFotoURL(data.getString("foto"));
+                                candidato.setJson(data.toString());
 
                                 candidatosList.add(candidato);
                             }

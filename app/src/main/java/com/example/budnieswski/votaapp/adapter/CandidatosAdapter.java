@@ -58,14 +58,16 @@ public class CandidatosAdapter extends BaseAdapter {
         if (imageLoader == null)
             imageLoader = AppSingleton.getInstance(activity).getImageLoader();
 
-        TextView nome = (TextView) convertView.findViewById(R.id.nome);
+        TextView nome = (TextView) convertView.findViewById(R.id.textView123);
         TextView partido = (TextView) convertView.findViewById(R.id.partido);
+        TextView json = (TextView) convertView.findViewById(R.id.json);
         NetworkImageView foto = (NetworkImageView) convertView.findViewById(R.id.foto);
 
         Candidato c = candidatos.get(position);
 
         nome.setText(c.getNome());
         partido.setText(c.getPartido());
+        json.setText(c.getJson());
         foto.setImageUrl(c.getFotoURL(), imageLoader);
 
         return convertView;

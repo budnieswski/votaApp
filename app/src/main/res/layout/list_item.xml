@@ -18,9 +18,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/json"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="NOME"
-                    android:id="@+id/nome"
+                    android:id="@+id/textView123"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/foto"
                     android:layout_toEndOf="@+id/foto"
@@ -33,7 +39,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="PARTIDO"
                     android:id="@+id/partido"
-                    android:layout_below="@+id/nome"
+                    android:layout_below="@+id/textView123"
                     android:layout_toRightOf="@+id/foto"
                     android:layout_toEndOf="@+id/foto"
                     android:paddingTop="5dp"
