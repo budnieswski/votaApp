@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -107,7 +108,6 @@ public class WelcomeActivity extends AppCompatActivity {
                             Log.d("Error", e.getMessage());
                         }
 
-                        Log.d("Response", response.toString());
                         pDialog.hide();
                     }
                 },
@@ -116,7 +116,16 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         pDialog.hide();
-                        Log.d("Error", error.getMessage());
+                        TextView topMessage = (TextView) findViewById(R.id.topMessage);
+                        NetworkResponse networkResponse = error.networkResponse;
+
+                        topMessage.setVisibility(View.VISIBLE);
+
+                        if (networkResponse != null && networkResponse.statusCode == 404) {
+                            topMessage.setText( "Server not found (404)" );
+                        } else {
+                            topMessage.setText( "Couldn't connect to server, try again later." );
+                        }
                     }
                 }
         );

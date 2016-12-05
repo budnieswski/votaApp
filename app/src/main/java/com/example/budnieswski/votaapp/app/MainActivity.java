@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -93,10 +94,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         TextView message = (TextView) findViewById(R.id.message);
-                        message.setText( "Houve um erro:\n" + error.getMessage() );
+                        NetworkResponse networkResponse = error.networkResponse;
+
+                        if (networkResponse != null) {
+                            switch (networkResponse.statusCode) {
+                                case 404:
+                                    message.setText( "Server not found (404)" );
+                                    break;
+                                default:
+                                    message.setText( "Couldn't connect to server, try again later." );
+                                    break;
+                            }
+                        }
 
                         pDialog.hide();
-                        Log.d("Error", error.getMessage());
                     }
                 }
         );
