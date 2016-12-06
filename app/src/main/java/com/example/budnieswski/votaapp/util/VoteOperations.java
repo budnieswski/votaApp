@@ -110,6 +110,16 @@ public class VoteOperations {
         db.update(SimpleDBWrapper.VOTE, values, SimpleDBWrapper.VOTE_USER_ID + "=" + userId, null);
     }
 
+    public String getConfirma(int userId) {
+        Cursor cursor = db.query(SimpleDBWrapper.VOTE, VOTE_COLUMNS,
+                SimpleDBWrapper.VOTE_USER_ID + "=" + userId, null, null, null, null);
+
+        if (!cursor.moveToFirst())
+            return null;
+
+        return cursor.getString( cursor.getColumnIndex(SimpleDBWrapper.VOTE_CONFIRMA) );
+    }
+
     public void resetVoto(int userId) {
         ContentValues values = new ContentValues();
 

@@ -31,7 +31,15 @@ public class DetailActivity extends AppCompatActivity {
         TextView partido = (TextView) findViewById(R.id.partido);
         TextView json = (TextView) findViewById(R.id.json);
         TextView typeTx = (TextView) findViewById(R.id.type);
+        Button votar = (Button) findViewById(R.id.vote);
         NetworkImageView foto = (NetworkImageView) findViewById(R.id.foto);
+
+        VoteOperations conn = new VoteOperations(this);
+        conn.open();
+
+        // Evitando votar apos confirmado
+        if (!conn.getConfirma(WelcomeActivity.userID).isEmpty())
+            votar.setEnabled(false);
 
         Intent it = getIntent();
         if (it != null) {
@@ -55,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-        ((Button) findViewById(R.id.vote)).setOnClickListener(new View.OnClickListener() {
+        votar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView json = (TextView) findViewById(R.id.json);
                 TextView type = (TextView) findViewById(R.id.type);
@@ -66,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
                     case "prefeito":
                         conn.setPrefeito(WelcomeActivity.userID, json.getText().toString());
                         break;
-                    case "vereado":
+                    case "vereador":
                         conn.setVereador(WelcomeActivity.userID, json.getText().toString());
                         break;
                 }

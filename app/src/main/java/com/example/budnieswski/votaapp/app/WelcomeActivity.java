@@ -102,14 +102,25 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(it);
                 return true;
             case R.id.menuSair:
-                VoteOperations conn = new VoteOperations(this);
-                conn.open();
-
-                conn.resetVoto(WelcomeActivity.userID);
-                finish();
+                this.onDestroy();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+
+        VoteOperations conn = new VoteOperations(this);
+        conn.open();
+        String confirma = conn.getConfirma(WelcomeActivity.userID);
+
+        if (confirma == null)
+            conn.resetVoto(WelcomeActivity.userID);
+
+        finish();
+
+        super.onDestroy();
     }
 
     public void volleyDataRequest(String url, final String type) {
