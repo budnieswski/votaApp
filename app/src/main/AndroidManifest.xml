@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.WelcomeActivity" />
-        <activity android:name=".app.DetailActivity"></activity>
+        <activity android:name=".app.DetailActivity" />
+        <activity android:name=".app.ConfirmaActivity"></activity>
     </application>
 
 </manifest>

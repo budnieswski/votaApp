@@ -5,6 +5,7 @@ package com.example.budnieswski.votaapp.model;
  */
 public class Candidato {
     private int id;
+    private String type; // Define se é prefeito/vereador
     private String json;
     private String nome;
     private String partido;
@@ -18,6 +19,14 @@ public class Candidato {
         this.nome = nome;
         this.partido = partido;
         this.fotoURL = fotoURL;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getJson() {

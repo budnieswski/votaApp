@@ -61,6 +61,7 @@ public class CandidatosAdapter extends BaseAdapter {
         TextView nome = (TextView) convertView.findViewById(R.id.textView123);
         TextView partido = (TextView) convertView.findViewById(R.id.partido);
         TextView json = (TextView) convertView.findViewById(R.id.json);
+        TextView type = (TextView) convertView.findViewById(R.id.type);
         NetworkImageView foto = (NetworkImageView) convertView.findViewById(R.id.foto);
 
         Candidato c = candidatos.get(position);
@@ -68,6 +69,7 @@ public class CandidatosAdapter extends BaseAdapter {
         nome.setText(c.getNome());
         partido.setText(c.getPartido());
         json.setText(c.getJson());
+        type.setText(c.getType());
         foto.setImageUrl(c.getFotoURL(), imageLoader);
 
         return convertView;

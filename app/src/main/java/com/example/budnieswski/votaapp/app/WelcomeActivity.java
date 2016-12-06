@@ -23,6 +23,7 @@ import com.example.budnieswski.votaapp.R;
 import com.example.budnieswski.votaapp.adapter.CandidatosAdapter;
 import com.example.budnieswski.votaapp.model.Candidato;
 import com.example.budnieswski.votaapp.util.AppSingleton;
+import com.example.budnieswski.votaapp.util.VoteOperations;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    public static int userID;
     private ProgressDialog pDialog;
     private static List<Candidato> candidatosList;
     private String urlPrefeito = "https://dl.dropboxusercontent.com/u/40990541/prefeito.json";
@@ -44,12 +46,30 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         candidatosList = new ArrayList<Candidato>();
 
+        Intent it = getIntent();
+        if (it != null) {
+            Bundle params = it.getExtras();
+            if (params != null) {
+                userID = params.getInt("userID");
+            }
+        }
+
         ((ListView) findViewById(R.id.lista)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String json = ((TextView) view.findViewById(R.id.json)).getText().toString();
+                String type = ((TextView) view.findViewById(R.id.type)).getText().toString();
+
                 Intent it = new Intent(WelcomeActivity.this, DetailActivity.class);
-                it.putExtra("json", json);
+
+                Bundle b = new Bundle();
+                b.putString("json", json);
+                b.putString("type", type);
+
+                it.putExtras(b);
+
+                Log.d("Settado", type);
+
                 startActivity(it);
             }
         });
@@ -78,9 +98,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 setTitle("Candidatos a Vereador");
                 return true;
             case R.id.menuConfirmar:
-                Toast.makeText(this, "Confirmar", Toast.LENGTH_SHORT).show();
+                Intent it = new Intent(WelcomeActivity.this, ConfirmaActivity.class);
+                startActivity(it);
                 return true;
             case R.id.menuSair:
+                VoteOperations conn = new VoteOperations(this);
+                conn.open();
+
+                conn.resetVoto(WelcomeActivity.userID);
                 finish();
                 return true;
         }
@@ -111,6 +136,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 candidato.setNome(data.getString("nome"));
                                 candidato.setPartido(data.getString("partido"));
                                 candidato.setFotoURL(data.getString("foto"));
+                                candidato.setType(type);
                                 candidato.setJson(data.toString());
 
                                 candidatosList.add(candidato);

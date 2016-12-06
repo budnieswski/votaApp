@@ -17,7 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.budnieswski.votaapp.R;
+import com.example.budnieswski.votaapp.model.Vote;
 import com.example.budnieswski.votaapp.util.AppSingleton;
+import com.example.budnieswski.votaapp.util.VoteOperations;
 import com.example.budnieswski.votaapp.util.md5;
 
 import org.json.JSONException;
@@ -75,8 +77,17 @@ public class MainActivity extends AppCompatActivity {
                                 message.setText(response.getString("message"));
                             } else {
                                 // Logged!
-                                message.setText(response.getString("message"));
+                                VoteOperations conn = new VoteOperations(MainActivity.this);
+                                conn.open();
+
+                                Vote vote = conn.getUser(response.getJSONArray("user").getInt(0));
+
+                                // Usuario ainda nao cadastrado
+                                if (vote == null)
+                                    conn.setUser(response.getJSONArray("user").getInt(0));
+
                                 Intent it = new Intent(context, WelcomeActivity.class);
+                                it.putExtra("userID", response.getJSONArray("user").getInt(0));
                                 startActivity(it);
 
                                 finish();
