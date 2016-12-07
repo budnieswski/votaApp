@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
         conn.open();
 
         // Evitando votar apos confirmado
-        if (!conn.getConfirma(WelcomeActivity.userID).isEmpty())
+        if (conn.getConfirma(WelcomeActivity.userID) != null && conn.getConfirma(WelcomeActivity.userID).equals("S"))
             votar.setEnabled(false);
 
         Intent it = getIntent();
@@ -78,6 +78,8 @@ public class DetailActivity extends AppCompatActivity {
                         conn.setVereador(WelcomeActivity.userID, json.getText().toString());
                         break;
                 }
+
+                Toast.makeText(DetailActivity.this, "Voto efetuado com sucesso!", Toast.LENGTH_SHORT).show();
             }
         });
     }

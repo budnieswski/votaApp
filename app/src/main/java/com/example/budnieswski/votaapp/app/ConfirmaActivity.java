@@ -1,5 +1,7 @@
 package com.example.budnieswski.votaapp.app;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -26,6 +29,7 @@ public class ConfirmaActivity extends AppCompatActivity {
 
         setTitle("Confirmar Votos");
         Button confirmar = (Button) findViewById(R.id.confirmar);
+        Button alterar = (Button) findViewById(R.id.alterar);
 
         VoteOperations conn = new VoteOperations(this);
         conn.open();
@@ -42,6 +46,63 @@ public class ConfirmaActivity extends AppCompatActivity {
         // Evitando votar sem ter os 2 candidatos
         if (!prefeitoJSON.isEmpty() && !vereadorJSON.isEmpty())
             confirmar.setEnabled(true);
+
+        Log.d("DADOS", "Confirma" + conn.getConfirma(WelcomeActivity.userID) );
+        // Exibindo o alterar voto somente se já estiver confirmado
+        if (conn.getConfirma(WelcomeActivity.userID) != null && conn.getConfirma(WelcomeActivity.userID).equals("S")) {
+            confirmar.setVisibility(View.GONE);
+            alterar.setVisibility(View.VISIBLE);
+        }
+
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("EVENT", "On confirma click");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaActivity.this);
+                builder.setMessage("Deseja realmente confirmar seus votos?")
+                        .setTitle("Computar voto");
+
+                builder.setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        VoteOperations conn = new VoteOperations(ConfirmaActivity.this);
+                        conn.open();
+
+                        conn.setConfirma(WelcomeActivity.userID);
+
+                        Button confirmar = (Button) findViewById(R.id.confirmar);
+                        confirmar.setVisibility(View.GONE);
+
+                        Button alterar = (Button) findViewById(R.id.confirmar);
+                        alterar.setVisibility(View.VISIBLE);
+
+                        // ENVIAR DADOS
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaActivity.this);
+                        builder.setMessage("Votos enviados com sucesso.\nObrigado!")
+                                .setTitle("Votos computados");
+
+
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+
+                        AlertDialog dialogComputado = builder.create();
+                        dialogComputado.show();
+                    }
+                });
+
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     private void showPrefeito(String prefeitoJson) {

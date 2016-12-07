@@ -39,6 +39,9 @@ public class VoteOperations {
         ContentValues values = new ContentValues();
 
         values.put(SimpleDBWrapper.VOTE_USER_ID, userId);
+        values.put(SimpleDBWrapper.VOTE_VEREADOR, "");
+        values.put(SimpleDBWrapper.VOTE_PREFEITO, "");
+        values.put(SimpleDBWrapper.VOTE_CONFIRMA, "");
 
         long voteID = db.insert(SimpleDBWrapper.VOTE, null, values);
 
@@ -102,7 +105,7 @@ public class VoteOperations {
         return cursor.getString( cursor.getColumnIndex(SimpleDBWrapper.VOTE_VEREADOR) );
     }
 
-    public void setConfirma(int userId, String confirma) {
+    public void setConfirma(int userId) {
         ContentValues values = new ContentValues();
 
         values.put(SimpleDBWrapper.VOTE_CONFIRMA, "S");
