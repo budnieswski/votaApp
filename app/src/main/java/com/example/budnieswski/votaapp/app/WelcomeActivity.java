@@ -54,6 +54,10 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }
 
+        if (((ListView) findViewById(R.id.lista)).getAdapter().getCount() < 1) {
+            ((TextView) findViewById(R.id.topMessage)).setText("Escolha sua opção no menu");
+        }
+
         ((ListView) findViewById(R.id.lista)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,7 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(it);
                 return true;
             case R.id.menuSair:
-                this.onDestroy();
+                this.resetAll();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -110,17 +114,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        this.resetAll();
 
+        super.onDestroy();
+    }
+
+    public void resetAll() {
         VoteOperations conn = new VoteOperations(this);
         conn.open();
         String confirma = conn.getConfirma(WelcomeActivity.userID);
 
-        if (confirma == null)
+        if (!confirma.equals("S"))
             conn.resetVoto(WelcomeActivity.userID);
 
         finish();
-
-        super.onDestroy();
     }
 
     public void volleyDataRequest(String url, final String type) {

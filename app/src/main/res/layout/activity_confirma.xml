@@ -25,6 +25,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/prefeitoID"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Prefeito"
                 android:id="@+id/prefeitoTitle"
                 android:layout_alignParentTop="true"
@@ -85,6 +92,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/vereadorID"
+                android:visibility="invisible" />
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/vereadorFoto"

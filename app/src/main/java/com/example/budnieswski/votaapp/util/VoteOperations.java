@@ -128,6 +128,7 @@ public class VoteOperations {
 
         values.put(SimpleDBWrapper.VOTE_VEREADOR, "");
         values.put(SimpleDBWrapper.VOTE_PREFEITO, "");
+        values.put(SimpleDBWrapper.VOTE_CONFIRMA, "");
 
         db.update(SimpleDBWrapper.VOTE, values, SimpleDBWrapper.VOTE_USER_ID + "=" + userId, null);
     }

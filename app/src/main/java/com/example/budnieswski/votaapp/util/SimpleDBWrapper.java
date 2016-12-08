@@ -18,7 +18,7 @@ public class SimpleDBWrapper extends SQLiteOpenHelper {
     public static final String VOTE_VEREADOR = "_vereador";
 
     public static final String DATABASE_NAME = "Vote.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public static final String DATABASE_CREATE = "CREATE TABLE " + VOTE + "("
             + VOTE_ID + " integer primary key autoincrement, "
